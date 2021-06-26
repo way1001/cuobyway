@@ -73,7 +73,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
 
             Add
             (
-                new Label(localization.GetString(3000326, "Choose a Trade for Your Character"), false, 0x0386, font: 2)
+                new Label(localization.GetString(3000326, "Choose a Trade for Your Character"), true, 0x0481, font: 1)
                 {
                     X = 158,
                     Y = 132

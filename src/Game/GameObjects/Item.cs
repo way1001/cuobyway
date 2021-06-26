@@ -31,6 +31,7 @@
 #endregion
 
 using System;
+using ClassicUO.Configuration;
 using ClassicUO.Game.Data;
 using ClassicUO.Game.Managers;
 using ClassicUO.Game.Scenes;
@@ -226,6 +227,12 @@ namespace ClassicUO.Game.GameObjects
             if (Opened)
             {
                 UIManager.GetGump<ContainerGump>(Serial)?.Dispose();
+                
+                //add
+                // if (ProfileManager.CurrentProfile.CustomizeGridBag)
+                // {
+                    UIManager.GetGump<GridContainerGump>(Serial)?.Dispose();
+                // }
 
                 UIManager.GetGump<SpellbookGump>(Serial)?.Dispose();
 

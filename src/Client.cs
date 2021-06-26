@@ -32,7 +32,9 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Threading;
 using ClassicUO.Configuration;
 using ClassicUO.Data;
 using ClassicUO.Game.Data;
@@ -206,7 +208,9 @@ namespace ClassicUO
             }
 
             Log.Trace("Done!");
-
+            
+            Thread.CurrentThread.CurrentUICulture = Settings.GlobalSettings.Lang == 0 ? CultureInfo.GetCultureInfo("en-US"): CultureInfo.GetCultureInfo("zh");
+            
             UoAssist.Start();
 
             Log.Trace(">>>>>>>>>>>>> DONE >>>>>>>>>>>>>");

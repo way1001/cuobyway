@@ -514,8 +514,11 @@ namespace ClassicUO.Game.Scenes
                 {
                     case CursorTarget.Grab:
                     case CursorTarget.SetGrabBag:
+                    case CursorTarget.AddToLootlist:
                     case CursorTarget.Position:
                     case CursorTarget.Object:
+                    case CursorTarget.Clear:
+                    case CursorTarget.Supply:
                     case CursorTarget.MultiPlacement when World.CustomHouseManager == null:
                     {
                         BaseGameObject obj = lastObj;

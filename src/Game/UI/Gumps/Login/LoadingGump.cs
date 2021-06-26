@@ -59,10 +59,10 @@ namespace ClassicUO.Game.UI.Gumps.Login
             _label = new Label
             (
                 labelText,
-                false,
-                0x0386,
+                true,
+                0x0497,
                 326,
-                2,
+                1,
                 align: TEXT_ALIGN_TYPE.TS_CENTER
             )
             {

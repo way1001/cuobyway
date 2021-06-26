@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net472</TargetFramework>
     <ApplicationIcon>cuoicon.ico</ApplicationIcon>
+    <Configurations>Release;Debug</Configurations>
   </PropertyGroup>
 
 
@@ -16,7 +17,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>$(ProjectDir)..\bin\Release\</OutputPath>
+    <OutputPath>..\bin\Release</OutputPath>
     <PublishDir>$(ProjectDir)..\bin\dist\</PublishDir>
     <Optimize>true</Optimize>
   </PropertyGroup>
@@ -24,7 +25,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <OutputPath>$(ProjectDir)..\bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug</OutputPath>
   </PropertyGroup>
 
 

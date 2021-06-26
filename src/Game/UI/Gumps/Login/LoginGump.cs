@@ -190,8 +190,8 @@ namespace ClassicUO.Game.UI.Gumps.Login
                         0x00D3,
                         ResGumps.Autologin,
                         1,
-                        0x0386,
-                        false
+                        0x0497,
+                        true
                     )
                     {
                         X = 150,
@@ -207,8 +207,8 @@ namespace ClassicUO.Game.UI.Gumps.Login
                         0x00D3,
                         ResGumps.SaveAccount,
                         1,
-                        0x0386,
-                        false
+                        0x0497,
+                        true
                     )
                     {
                         X = _checkboxAutologin.X + _checkboxAutologin.Width + 10,
@@ -217,7 +217,7 @@ namespace ClassicUO.Game.UI.Gumps.Login
                 );
 
                 font = 1;
-                hue = 0x0386;
+                hue = 0x0497;
             }
             else
             {
@@ -290,9 +290,9 @@ namespace ClassicUO.Game.UI.Gumps.Login
                         0x00D2,
                         0x00D3,
                         ResGumps.Autologin,
-                        9,
+                        1,
                         0x0481,
-                        false
+                        true
                     )
                     {
                         X = 150,
@@ -307,9 +307,9 @@ namespace ClassicUO.Game.UI.Gumps.Login
                         0x00D2,
                         0x00D3,
                         ResGumps.SaveAccount,
-                        9,
+                        1,
                         0x0481,
-                        false
+                        true
                     )
                     {
                         X = _checkboxAutologin.X + _checkboxAutologin.Width + 10,
@@ -480,10 +480,10 @@ namespace ClassicUO.Game.UI.Gumps.Login
             (
                 0x00D2,
                 0x00D3,
-                "Music",
-                font,
+                "音樂",
+                1,
                 hue,
-                false
+                true
             )
             {
                 X = _checkboxSaveAccount.X + _checkboxSaveAccount.Width + 10,

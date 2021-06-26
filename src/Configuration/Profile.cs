@@ -52,6 +52,9 @@ namespace ClassicUO.Configuration
         [JsonIgnore] public string Username { get; set; }
         [JsonIgnore] public string ServerName { get; set; }
         [JsonIgnore] public string CharacterName { get; set; }
+        // AutoGather
+        public bool AutoGather { get; set; }
+
 
         // sounds
         public bool EnableSound { get; set; } = true;
@@ -177,6 +180,13 @@ namespace ClassicUO.Configuration
         public bool SmoothDoors { get; set; }
         public bool AutoOpenCorpses { get; set; }
         public int AutoOpenCorpseRange { get; set; } = 2;
+        public bool AutoLootGold { get; set; }
+        public bool AutoLootItem { get; set; }
+        public int LootListScale { get; set; } = 3;
+        public int LootListRowsNum { get; set; } = 4;
+        public int AutoLootDelays { get; set; } = 500;
+        public int SelectLanguage { get; set; } = 0;
+        public List<ushort[]> LootList { get; set; }
         public int CorpseOpenOptions { get; set; } = 3;
         public bool SkipEmptyCorpse { get; set; }
         public bool DisableDefaultHotkeys { get; set; }
@@ -187,7 +197,7 @@ namespace ClassicUO.Configuration
         public bool EnableDragSelect { get; set; }
         public int DragSelectModifierKey { get; set; } // 0 = none, 1 = control, 2 = shift
         public bool OverrideContainerLocation { get; set; }
-
+        public bool CustomizeGridBag { get; set; }
         public int OverrideContainerLocationSetting { get; set; } // 0 = container position, 1 = top right of screen, 2 = last dragged position, 3 = remember every container
 
         public Point OverrideContainerLocationPosition { get; set; } = new Point(200, 200);

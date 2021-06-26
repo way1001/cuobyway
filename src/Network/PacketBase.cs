@@ -105,6 +105,13 @@ namespace ClassicUO.Network
             WriteByte((byte) (v >> 8));
             WriteByte((byte) v);
         }
+        public void WriteUShortLE(ushort v)
+        {
+            EnsureSize(2);
+            WriteByte((byte) v);
+            WriteByte((byte) (v >> 8));
+
+        }
 
         public void WriteUInt(uint v)
         {
@@ -181,6 +188,28 @@ namespace ClassicUO.Network
                 if (c != '\0')
                 {
                     WriteUShort(c);
+                }
+            }
+
+
+            if (value.Length < length)
+            {
+                WriteUShort(0);
+                Position += (length - value.Length - 1) * 2;
+            }
+        }
+        
+        public void WriteUnicodeLE(string value, int length)
+        {
+            EnsureSize(length);
+
+            for (int i = 0; i < length && i < value.Length; i++)
+            {
+                char c = value[i];
+
+                if (c != '\0')
+                {
+                    WriteUShortLE(c);
                 }
             }
 

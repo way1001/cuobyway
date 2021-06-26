@@ -105,7 +105,7 @@ namespace ClassicUO.Game.Scenes
         private RenderTarget2D _world_render_target, _lightRenderTarget;
 
 
-        public GameScene() : base((int) SceneType.Game, true, true, true)
+        public GameScene() : base((int) SceneType.Game, true, true, false)
         {
         }
 
@@ -200,7 +200,7 @@ namespace ClassicUO.Game.Scenes
 
             CircleOfTransparency.Create(ProfileManager.CurrentProfile.CircleOfTransparencyRadius);
             Plugin.OnConnected();
-
+            World.Player.LootThread();
 
             Camera.SetZoomValues
             (
@@ -320,6 +320,7 @@ namespace ClassicUO.Game.Scenes
 
         public override void Unload()
         {
+            World.Player.EndLootThread();
             Client.Game.SetWindowTitle(string.Empty);
 
             ItemHold.Clear();

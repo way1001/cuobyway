@@ -118,49 +118,55 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BlackPearl" xml:space="preserve">
-    <value>Black Pearl</value>
+    <value>黑珍珠</value>
   </data>
   <data name="Bloodmoss" xml:space="preserve">
-    <value>Bloodmoss</value>
+    <value>血苔</value>
   </data>
   <data name="Garlic" xml:space="preserve">
-    <value>Garlic</value>
+    <value>大蒜</value>
   </data>
   <data name="Ginseng" xml:space="preserve">
-    <value>Ginseng</value>
+    <value>人參</value>
   </data>
   <data name="MandrakeRoot" xml:space="preserve">
-    <value>Mandrake Root</value>
+    <value>曼陀羅根</value>
   </data>
   <data name="Nightshade" xml:space="preserve">
-    <value>Nightshade</value>
+    <value>龍葵</value>
   </data>
   <data name="SulfurousAsh" xml:space="preserve">
-    <value>Sulfurous Ash</value>
+    <value>硫磺灰</value>
   </data>
   <data name="SpidersSilk" xml:space="preserve">
-    <value>Spiders Silk</value>
+    <value>蜘蛛絲</value>
   </data>
   <data name="GraveDust" xml:space="preserve">
-    <value>Grave Dust</value>
+    <value>火山灰</value>
   </data>
   <data name="BatWing" xml:space="preserve">
-    <value>Bat Wing</value>
+    <value>蝙蝠翼</value>
   </data>
   <data name="DaemonBlood" xml:space="preserve">
-    <value>Daemon Blood</value>
+    <value>血瓶</value>
   </data>
   <data name="NoxCrystal" xml:space="preserve">
-    <value>Nox Crystal</value>
+    <value>巨蛇鱗片</value>
   </data>
   <data name="PigIron" xml:space="preserve">
-    <value>Pig Iron</value>
+    <value>生鐵</value>
   </data>
-  <data name="TryOpen" xml:space="preserve">
-    <value>尝试打开</value>
+  <data name="Bone" xml:space="preserve">
+    <value>骨頭</value>
   </data>
-  <data name="Looting" xml:space="preserve">
-    <value>拾取中</value>
+  <data name="FertileDirt" xml:space="preserve">
+    <value>肥沃之泥</value>
+  </data>
+  <data name="DragonsBlood" xml:space="preserve">
+    <value>龍血</value>
+  </data>
+  <data name="DaemonBone" xml:space="preserve">
+    <value>惡魔之骨</value>
   </data>
   <data name="ThisMayFlagYouCriminal" xml:space="preserve">
     <value>This may flag
@@ -237,7 +243,7 @@ Hue: {1}</value>
     <value>Target an Item to grab it.</value>
   </data>
   <data name="TargetAnItemToAddInLootList" xml:space="preserve">
-    <value>Target an item to add in lootList</value>
+    <value>选择一样物品添加到拾取清单</value>
   </data>
   <data name="Target0" xml:space="preserve">
     <value>Target: {0}</value>
@@ -399,13 +405,13 @@ Hue: {1}</value>
     <value>You have been banned from this conference.</value>
   </data>
   <data name="YourUODirectoryIsInvalid" xml:space="preserve">
-    <value>Your Ultima Online directory seems to be invalid.
+    <value>您的Ultima Online目錄似乎無效。
 Download the official Launcher to setup and run your game.
 
 Link: classicuo.eu</value>
   </data>
   <data name="YourUOClientVersionIsInvalid" xml:space="preserve">
-    <value>Your Ultima Online client version seems to be invalid.
+    <value>您的Ultima Online客戶端版本似乎無效。
 Download the official Launcher to setup and run your game.
 
 Link: classicuo.eu</value>
@@ -426,25 +432,25 @@ Link: classicuo.eu</value>
     <value>A storm is brewing.</value>
   </data>
   <data name="Your0HasChangedBy1ItIsNow2" xml:space="preserve">
-    <value>Your {0} has changed by {1}.  It is now {2}</value>
+    <value>你的{0}變更了{1}點. 現在是{2}</value>
   </data>
   <data name="Dexterity" xml:space="preserve">
-    <value>dexterity</value>
+    <value>敏捷</value>
   </data>
   <data name="Intelligence" xml:space="preserve">
-    <value>intelligence</value>
+    <value>智力</value>
   </data>
   <data name="Strength" xml:space="preserve">
-    <value>strength</value>
+    <value>力量</value>
   </data>
   <data name="Decreased" xml:space="preserve">
-    <value>decreased</value>
+    <value>減少</value>
   </data>
   <data name="Increased" xml:space="preserve">
-    <value>increased</value>
+    <value>提升</value>
   </data>
   <data name="YourSkillIn0Has1By2ItIsNow3" xml:space="preserve">
-    <value>Your skill in {0} has {1} by {2:F1}.  It is now {3:F1}.</value>
+    <value>你的{0}技能{1}了{2:F1}點. 現在是{3:F1}.</value>
   </data>
   <data name="YouHaveJoinedThe0Channel" xml:space="preserve">
     <value>You have joined the '{0}' channel.</value>

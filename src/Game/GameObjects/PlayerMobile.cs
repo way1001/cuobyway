@@ -30,16 +30,20 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using ClassicUO.Configuration;
 using ClassicUO.Data;
 using ClassicUO.Game.Data;
 using ClassicUO.Game.Managers;
+using ClassicUO.Game.Scenes;
 using ClassicUO.Game.UI.Controls;
 using ClassicUO.Game.UI.Gumps;
 using ClassicUO.IO.Resources;
 using ClassicUO.Network;
+using ClassicUO.Resources;
 using ClassicUO.Utility.Logging;
 
 namespace ClassicUO.Game.GameObjects
@@ -47,7 +51,12 @@ namespace ClassicUO.Game.GameObjects
     internal class PlayerMobile : Mobile
     {
         private readonly Dictionary<BuffIconType, BuffIcon> _buffIcons = new Dictionary<BuffIconType, BuffIcon>();
-
+        private Thread th;
+        private Item _lootitem;
+        private Item _corpse;
+        
+        public static readonly HashSet<uint> OpenedCorpses = new HashSet<uint>();
+        public static readonly HashSet<uint> LootedCorpses = new HashSet<uint>();
         public PlayerMobile(uint serial) : base(serial)
         {
             Skills = new Skill[SkillsLoader.Instance.SkillsCount];
@@ -65,7 +74,11 @@ namespace ClassicUO.Game.GameObjects
 
         public IReadOnlyDictionary<BuffIconType, BuffIcon> BuffIcons => _buffIcons;
 
+        public static bool MoveObject { get; set; } = false;
 
+        public static int MoveType { get; set; }
+
+        public static Item MoveBag { get; set; }
         public Ability PrimaryAbility
         {
             get => Abilities[0];
@@ -80,7 +93,372 @@ namespace ClassicUO.Game.GameObjects
 
         protected override bool IsWalking => LastStepTime > Time.Ticks - Constants.PLAYER_WALKING_DELAY;
 
+        public bool LootStopFlag { get; set; }
+        
+        
+        public void EndLootThread()
+        {
+            this.LootStopFlag = true;
+            while (this.LootStopFlag && th.ThreadState != ThreadState.Stopped && this.th.ThreadState != ThreadState.Aborted)
+            {
+                Thread.Sleep(10);
+            }
+        }
+        
+        public void LootThread()
+        {
+            if (ProfileManager.CurrentProfile.AutoLootDelays < 200)
+            {
+                ProfileManager.CurrentProfile.AutoLootDelays = 200;
+            }
+            if (th == null)
+            {
+                th = new Thread(delegate()
+                {
+                    _lootitem = null;
+                    _corpse = null;
+                    GameScene scene = Client.Game.GetScene<GameScene>();
+                    while (scene != null && scene.IsLoaded && !this.LootStopFlag)
+                    {
+                        try
+                        {
+                            AutoLoot();
+                        }
+                        catch
+                        {
+                            Log.Warn("Throwing Exceptions.");
+                        }
+                        Thread.Sleep(ProfileManager.CurrentProfile.AutoLootDelays);
+                    }
+                })
+                {
+                    IsBackground = true
+                };
+                this.th.Start();
+            }
+        }
+        
+        public void AutoLoot()
+		{
+			LootingGump lootingGump = UIManager.GetGump<LootingGump>(null);
+			if (lootingGump == null)
+			{
+				lootingGump = new LootingGump(null);
+				UIManager.Add(lootingGump);
+			}
+			// if (MoveObject && !IsDead)
+			// {
+   //              Item backpack = World.Player.FindItemByLayer(Layer.Backpack);
+			// 	uint grabBag = (ProfileManager.CurrentProfile.GrabBagSerial == 0U) ? backpack.Serial : ProfileManager.CurrentProfile.GrabBagSerial;
+			// 	if (!World.Items.Contains(grabBag))
+			// 	{
+			// 		GameActions.Print(ResGeneral.GrabBagNotFound, 946, MessageType.Regular, 3, true);
+			// 		ProfileManager.CurrentProfile.GrabBagSerial = 0U;
+   //                  grabBag = backpack.Serial;
+			// 	}
+				// if (MoveBag != null)
+				// {
+				// 	if (num != MoveBag.Serial)
+				// 	{
+				// 		if (!MoveBag.Items.IsEmpty)
+				// 		{
+    //
+    //                             LinkedObject obj = MoveBag.Items;
+    //                             while (obj != null)
+    //                             {
+    //                                 LinkedObject next = obj.Next;
+    //
+    //                                 Item it = (Item) obj;
+    //
+    //                                 if (ProfileManager.CurrentProfile.LootList == null)
+    //                                 {
+    //                                     ProfileManager.CurrentProfile.LootList = new List<ushort[]>();
+    //                                 }
+    //                                 // if (ProfileManager.CurrentProfile.BuyList == null)
+    //                                 // {
+    //                                 // 	ProfileManager.CurrentProfile.BuyList = new List<ushort[]>();
+    //                                 // }
+    //                                 List<ushort[]> list = new List<ushort[]>();
+    //                                 int moveType = MoveType;
+    //                                 if (moveType != 0)
+    //                                 {
+    //                                     if (moveType == 1)
+    //                                     {
+    //                                         // list = ProfileManager.Current.BuyList;
+    //                                     }
+    //                                 }
+    //                                 else
+    //                                 {
+    //                                     list = ProfileManager.CurrentProfile.LootList;
+    //                                 }
+    //                                 foreach (ushort[] array in list)
+    //                                 {
+    //                                     if (it.Graphic == array[0] && it.Hue == array[1])
+    //                                     {
+    //                                         ushort amount = it.Amount;
+    //                                         if (MoveType == 1)
+    //                                         {
+    //                                         	int num2 = 0;
+    //                                         	GetAmount(backpack, it.Graphic, ref num2);
+    //                                         	ushort num3;
+    //                                         	if (array.Length < 3)
+    //                                         	{
+    //                                         		num3 = 30;
+    //                                         	}
+    //                                         	else
+    //                                         	{
+    //                                         		num3 = array[2];
+    //                                         	}
+    //                                         	if ((int)num3 - num2 <= 0)
+    //                                         	{
+    //                                         		continue;
+    //                                         	}
+    //                                         	amount = (ushort)((int)num3 - num2);
+    //                                         }
+    //                                         GameActions.GrabItem(it, amount, 0U);
+    //                                         lootingGump.ChangeName(it);
+    //                                         return;
+    //                                     }
+    //                                 }
+    //
+    //                                 obj = next;
+    //                             }
+    //                             goto Looting;
+				// 		}
+				// 		GameActions.Print(ResGeneral.ClearFinish, 946, MessageType.Regular, 3, true);
+				// 	}
+				// 	else
+				// 	{
+				// 		GameActions.Print(ResGeneral.BagsAreSame, 946, MessageType.Regular, 3, true);
+				// 	}
+				// }
+			// }
+			// Looting:
+            // MoveObject = false;
+			bool flag = false;
+			if (!IsDead && !IsWalking && ((ProfileManager.CurrentProfile.CorpseOpenOptions != 1 && ProfileManager.CurrentProfile.CorpseOpenOptions != 3) || !TargetManager.IsTargeting) && (!IsHidden || ProfileManager.CurrentProfile.CorpseOpenOptions <= 1))
+			{
+				if (!CanLoot(_lootitem))
+				{
+					_lootitem = null;
+					if (ProfileManager.CurrentProfile.AutoLootItem || ProfileManager.CurrentProfile.AutoLootGold)
+					{
+						if (_corpse == null || _corpse.Distance > ProfileManager.CurrentProfile.AutoOpenCorpseRange || LootedCorpses.Contains(_corpse.Serial))
+						{
+							_corpse = null;
+							foreach (Item corpse in from t in World.Items
+							where t.Graphic == 8198 && !LootedCorpses.Contains(t.Serial) && t.Distance <= ProfileManager.CurrentProfile.AutoOpenCorpseRange
+							select t)
+							{
+								// if (!ProfileManager.Current.NeedOpenCorpse)
+								// {
+								// 	this._corpse = corpse;
+								// 	break;
+								// }
+								if (IsOpended(corpse))
+								{
+									_corpse = corpse;
+									break;
+								}
+							}
+						}
+						if (_corpse != null)
+						{
+							_lootitem = CheckLoot();
+							if (_lootitem != null)
+							{
+								lootingGump.ChangeName(_lootitem);
+							}
+							else
+							{
+								LootedCorpses.Add(_corpse);
+								_corpse = null;
+							}
+						}
+						else
+						{
+							flag = LootGold();
+						}
+					}
+					else
+					{
+						flag = OpenCorpse();
+					}
+				}
+				if (flag)
+				{
+					GameActions.DoubleClickQueued(_corpse.Serial);
+					lootingGump.ChangeName(_corpse);
+					OpenedCorpses.Add(_corpse.Serial);
+					_corpse = null;
+					// flag = false;
+					return;
+				}
+				if (_lootitem != null)
+				{
+					GameActions.GrabItem(this._lootitem, this._lootitem.Amount, 0U);
+					lootingGump.ChangeName(_lootitem);
+					return;
+				}
+				lootingGump.ChangeName(_lootitem);
+			}
+		}
+        
+        private bool CanLoot(Item item)
+        {
+            return item != null && _corpse != null && _corpse.Distance <= ProfileManager.CurrentProfile.AutoOpenCorpseRange && ItemInCorpse(item);
+        }
+        
+        private bool ItemInCorpse(Item item)
+        {
+            LinkedObject obj = Items;
+            while (obj != null)
+            {
+                LinkedObject next = obj.Next;
+                Item it = (Item) obj;
+                if (it == item)
+                {
+                    return true;
+                }
+                obj = next;
+            }
+            return false;
+        }
+        
+        public static void GetAmount(Item parent, ushort graphic, ref int amount)
+        {
+            if (parent == null)
+            {
+                return;
+            }
 
+            for (LinkedObject i = parent.Items; i != null; i = i.Next)
+            {
+                Item it = (Item) i;
+                GetAmount(it, graphic, ref amount);
+                if (it.Graphic == graphic && it.Exists)
+                {
+                    amount += it.Amount;
+                }
+            }
+        }
+
+        
+        private bool IsOpended(Item corpse)
+        {
+            bool flag = UIManager.Gumps.OfType<ContainerGump>().FirstOrDefault(( s) => s.LocalSerial == corpse.Serial) != null;
+            GridLootGump gridLootGump = UIManager.Gumps.OfType<GridLootGump>().FirstOrDefault(( s) => s.LocalSerial == corpse.Serial);
+            GridContainerGump advanceContainerGump = UIManager.Gumps.OfType<GridContainerGump>().FirstOrDefault((s) => s.LocalSerial == corpse.Serial);
+            return flag || gridLootGump != null || advanceContainerGump != null;
+        }
+        
+        private Item CheckLoot()
+        {
+            Item result = null;
+            if (_corpse == null)
+            {
+                return null;
+            }
+            for (LinkedObject i = _corpse.Items; i != null; i = i.Next)
+            {
+                Item it = (Item) i;
+                if (it.IsCoin && ProfileManager.CurrentProfile.AutoLootGold)
+                {
+                    result = it;
+                    break;
+                }
+                if (ProfileManager.CurrentProfile.LootList == null)
+                {
+                    ProfileManager.CurrentProfile.LootList = new List<ushort[]>();
+                }
+                foreach (ushort[] array in ProfileManager.CurrentProfile.LootList)
+                {
+                    if (it.Graphic == array[0] && it.Hue == array[1])
+                    {
+                        result = it;
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+        
+        private bool OpenCorpse()
+        {
+            if (ProfileManager.CurrentProfile.AutoOpenCorpses)
+            {
+                if (_corpse == null || _corpse.Distance > ProfileManager.CurrentProfile.AutoOpenCorpseRange || OpenedCorpses.Contains(_corpse.Serial) || LootedCorpses.Contains(_corpse.Serial))
+                {
+                    _corpse = null;
+                    // alway invoking not need while
+                    // todo
+                    using (IEnumerator<Item> enumerator = (from t in World.Items
+                                                           where t.Graphic == 8198 && !OpenedCorpses.Contains(t.Serial) && t.Distance <= ProfileManager.CurrentProfile.AutoOpenCorpseRange
+                                                                 && !LootedCorpses.Contains(t.Serial)
+                                                           select t).GetEnumerator())
+                    {
+                        if (enumerator.MoveNext())
+                        {
+                            Item corpse = enumerator.Current;
+                            _corpse = corpse;
+                        }
+                    }
+                }
+                if (_corpse != null)
+                {
+                    return true;
+                }
+            }
+            _corpse = null;
+            _lootitem = null;
+            return false;
+        }
+
+		private bool LootGold()
+		{
+			bool result = false;
+			if (ProfileManager.CurrentProfile.AutoLootGold || ProfileManager.CurrentProfile.AutoLootItem)
+			{
+				Item tmpItem = null;
+				foreach (Item it in from t in World.Items
+				where t.Distance <= 1
+				select t)
+				{
+					if (ProfileManager.CurrentProfile.AutoLootGold && it.IsCoin)
+					{
+						_lootitem = it;
+						break;
+					}
+					if (ProfileManager.CurrentProfile.LootList == null)
+					{
+						ProfileManager.CurrentProfile.LootList = new List<ushort[]>();
+					}
+					foreach (ushort[] array in ProfileManager.CurrentProfile.LootList)
+					{
+						if (ProfileManager.CurrentProfile.AutoLootItem && it.Graphic == array[0] && it.Hue == array[1])
+						{
+                            tmpItem = it;
+							break;
+						}
+					}
+					if (tmpItem != null)
+					{
+						_lootitem = tmpItem;
+						break;
+					}
+				}
+				if (_lootitem == null)
+				{
+					result = OpenCorpse();
+				}
+			}
+			else
+			{
+				result = OpenCorpse();
+			}
+			return result;
+		}
+        
         internal WalkerManager Walker { get; } = new WalkerManager();
         public Ability[] Abilities = new Ability[2]
         {

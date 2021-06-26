@@ -60,6 +60,7 @@ namespace ClassicUO
         public static void Main(string[] args)
         {
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+            
 
             Log.Start(LogTypes.All);
 
@@ -119,13 +120,13 @@ namespace ClassicUO
             }
 #endif
 
-            if (!_skipUpdates)
-            {
-                if (CheckUpdate(args))
-                {
-                    return;
-                }
-            }
+            //if (!_skipUpdates)
+            //{
+            //    if (CheckUpdate(args))
+            //    {
+            //        return;
+            //    }
+            //}
 
             if (CUOEnviroment.IsHighDPI)
             {
@@ -217,7 +218,7 @@ namespace ClassicUO
                     Client.ShowErrorMessage(ResGeneral.YourUOClientVersionIsInvalid);
                 }
 
-                PlatformHelper.LaunchBrowser(ResGeneral.ClassicUOLink);
+                //PlatformHelper.LaunchBrowser(ResGeneral.ClassicUOLink);
             }
             else
             {
@@ -233,8 +234,10 @@ namespace ClassicUO
 
                         break;
                 }
+                
 
                 Client.Run();
+
             }
 
             Log.Trace("Closing...");

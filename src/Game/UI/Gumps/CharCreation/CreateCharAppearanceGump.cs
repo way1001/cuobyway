@@ -447,7 +447,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
 
             Add
             (
-                _hairLabel = new Label(ClilocLoader.Instance.GetString(race == RaceType.GARGOYLE ? 1112309 : 3000121), false, 0, font: 9)
+                _hairLabel = new Label(ClilocLoader.Instance.GetString(race == RaceType.GARGOYLE ? 1112309 : 3000121), true, 0x481, font: 3)
                 {
                     X = 98, Y = 142
                 },
@@ -476,7 +476,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
 
                 Add
                 (
-                    _facialLabel = new Label(ClilocLoader.Instance.GetString(race == RaceType.GARGOYLE ? 1112511 : 3000122), false, 0, font: 9)
+                    _facialLabel = new Label(ClilocLoader.Instance.GetString(race == RaceType.GARGOYLE ? 1112511 : 3000122), true, 0x481, font: 3)
                     {
                         X = 98, Y = 186
                     },
@@ -1053,7 +1053,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
 
                 Add
                 (
-                    new Label(ClilocLoader.Instance.GetString(label), false, 0, font: 9)
+                    new Label(ClilocLoader.Instance.GetString(label), true, 0x481, font: 3)
                     {
                         X = 0,
                         Y = 0

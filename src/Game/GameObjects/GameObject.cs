@@ -323,6 +323,13 @@ namespace ClassicUO.Game.GameObjects
                 TextContainer = new TextContainer();
             }
 
+            // temp
+            if(this.Graphic < 2)
+            {
+                this.Graphic = 0x3B38;
+                this.AllowedToDraw = true;
+            }
+            //end temp
             msg.Owner = this;
             TextContainer.Add(msg);
 

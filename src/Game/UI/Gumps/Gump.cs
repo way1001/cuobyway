@@ -231,6 +231,7 @@ namespace ClassicUO.Game.UI.Gumps
         {
             // For a gump, Page is the page that is drawing.
             ActivePage = pageIndex;
+            
         }
     }
 }

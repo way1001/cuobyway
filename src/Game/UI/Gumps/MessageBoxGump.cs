@@ -178,7 +178,7 @@ namespace ClassicUO.Game.UI.Gumps
                 l = new Label
                 (
                     message,
-                    false,
+                    true,
                     0x0386,
                     Width - 90,
                     1

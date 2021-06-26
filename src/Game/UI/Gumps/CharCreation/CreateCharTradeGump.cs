@@ -78,7 +78,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             //TextLabelAscii(AControl parent, int x, int y, int font, int hue, string text, int width = 400)
             Add
             (
-                new Label(ClilocLoader.Instance.GetString(3000326), false, 0x0386, font: 2)
+                new Label(ClilocLoader.Instance.GetString(3000326), true, 0x0481, font: 1)
                 {
                     X = 148, Y = 132
                 }
@@ -87,7 +87,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
             // strength, dexterity, intelligence
             Add
             (
-                new Label(ClilocLoader.Instance.GetString(3000111), false, 1, font: 1)
+                new Label(ClilocLoader.Instance.GetString(3000111), true, 0x0481, font: 1)
                 {
                     X = 158, Y = 170
                 }
@@ -95,7 +95,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
 
             Add
             (
-                new Label(ClilocLoader.Instance.GetString(3000112), false, 1, font: 1)
+                new Label(ClilocLoader.Instance.GetString(3000112), true, 0x0481, font: 1)
                 {
                     X = 158, Y = 250
                 }
@@ -103,7 +103,7 @@ namespace ClassicUO.Game.UI.Gumps.CharCreation
 
             Add
             (
-                new Label(ClilocLoader.Instance.GetString(3000113), false, 1, font: 1)
+                new Label(ClilocLoader.Instance.GetString(3000113), true, 0x0481, font: 1)
                 {
                     X = 158, Y = 330
                 }

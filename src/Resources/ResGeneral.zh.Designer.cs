@@ -19,17 +19,17 @@ namespace ClassicUO.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ResGeneral {
+    public class ResGeneralZh {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ResGeneral() {
+        internal ResGeneralZh() {
         }
         
         /// <summary>
@@ -142,7 +142,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bat Wing.
+        ///   Looks up a localized string similar to 蝙蝠翼.
         /// </summary>
         public static string BatWing {
             get {
@@ -151,7 +151,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Black Pearl.
+        ///   Looks up a localized string similar to 黑珍珠.
         /// </summary>
         public static string BlackPearl {
             get {
@@ -160,11 +160,20 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bloodmoss.
+        ///   Looks up a localized string similar to 血苔.
         /// </summary>
         public static string Bloodmoss {
             get {
                 return ResourceManager.GetString("Bloodmoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 骨頭.
+        /// </summary>
+        public static string Bone {
+            get {
+                return ResourceManager.GetString("Bone", resourceCulture);
             }
         }
         
@@ -269,7 +278,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CurrentProfile DateTime.Now is {0}.
+        ///   Looks up a localized string similar to Current DateTime.Now is {0}.
         /// </summary>
         public static string CurrentDateTimeNowIs0 {
             get {
@@ -287,7 +296,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Daemon Blood.
+        ///   Looks up a localized string similar to 血瓶.
         /// </summary>
         public static string DaemonBlood {
             get {
@@ -296,7 +305,16 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to decreased.
+        ///   Looks up a localized string similar to 惡魔之骨.
+        /// </summary>
+        public static string DaemonBone {
+            get {
+                return ResourceManager.GetString("DaemonBone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 減少.
         /// </summary>
         public static string Decreased {
             get {
@@ -305,11 +323,20 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dexterity.
+        ///   Looks up a localized string similar to 敏捷.
         /// </summary>
         public static string Dexterity {
             get {
                 return ResourceManager.GetString("Dexterity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 龍血.
+        /// </summary>
+        public static string DragonsBlood {
+            get {
+                return ResourceManager.GetString("DragonsBlood", resourceCulture);
             }
         }
         
@@ -359,7 +386,16 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Garlic.
+        ///   Looks up a localized string similar to 肥沃之泥.
+        /// </summary>
+        public static string FertileDirt {
+            get {
+                return ResourceManager.GetString("FertileDirt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 大蒜.
         /// </summary>
         public static string Garlic {
             get {
@@ -368,7 +404,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ginseng.
+        ///   Looks up a localized string similar to 人參.
         /// </summary>
         public static string Ginseng {
             get {
@@ -404,7 +440,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Grave Dust.
+        ///   Looks up a localized string similar to 火山灰.
         /// </summary>
         public static string GraveDust {
             get {
@@ -476,7 +512,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to increased.
+        ///   Looks up a localized string similar to 提升.
         /// </summary>
         public static string Increased {
             get {
@@ -485,7 +521,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to intelligence.
+        ///   Looks up a localized string similar to 智力.
         /// </summary>
         public static string Intelligence {
             get {
@@ -603,7 +639,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mandrake Root.
+        ///   Looks up a localized string similar to 曼陀羅根.
         /// </summary>
         public static string MandrakeRoot {
             get {
@@ -639,7 +675,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nightshade.
+        ///   Looks up a localized string similar to 龍葵.
         /// </summary>
         public static string Nightshade {
             get {
@@ -702,7 +738,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nox Crystal.
+        ///   Looks up a localized string similar to 巨蛇鱗片.
         /// </summary>
         public static string NoxCrystal {
             get {
@@ -765,7 +801,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pig Iron.
+        ///   Looks up a localized string similar to 生鐵.
         /// </summary>
         public static string PigIron {
             get {
@@ -830,7 +866,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spiders Silk.
+        ///   Looks up a localized string similar to 蜘蛛絲.
         /// </summary>
         public static string SpidersSilk {
             get {
@@ -857,7 +893,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to strength.
+        ///   Looks up a localized string similar to 力量.
         /// </summary>
         public static string Strength {
             get {
@@ -866,7 +902,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sulfurous Ash.
+        ///   Looks up a localized string similar to 硫磺灰.
         /// </summary>
         public static string SulfurousAsh {
             get {
@@ -1182,7 +1218,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your {0} has changed by {1}.  It is now {2}.
+        ///   Looks up a localized string similar to 你的{0}變更了{1}點. 現在是{2}.
         /// </summary>
         public static string Your0HasChangedBy1ItIsNow2 {
             get {
@@ -1191,7 +1227,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your skill in {0} has {1} by {2:F1}.  It is now {3:F1}..
+        ///   Looks up a localized string similar to 你的{0}技能{1}了{2:F1}點. 現在是{3:F1}..
         /// </summary>
         public static string YourSkillIn0Has1By2ItIsNow3 {
             get {
@@ -1200,7 +1236,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Ultima Online client version seems to be invalid.
+        ///   Looks up a localized string similar to 您的Ultima Online客戶端版本似乎無效。
         ///Download the official Launcher to setup and run your game.
         ///
         ///Link: classicuo.eu.
@@ -1212,7 +1248,7 @@ namespace ClassicUO.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Ultima Online directory seems to be invalid.
+        ///   Looks up a localized string similar to 您的Ultima Online目錄似乎無效。
         ///Download the official Launcher to setup and run your game.
         ///
         ///Link: classicuo.eu.
@@ -1257,18 +1293,6 @@ namespace ClassicUO.Resources {
         public static string TargetAnItemToAddInLootList {
             get {
                 return ResourceManager.GetString("TargetAnItemToAddInLootList", resourceCulture);
-            }
-        }
-		
-		public static string TryOpen {
-            get {
-                return ResourceManager.GetString("TryOpen", resourceCulture);
-            }
-        }
-		
-		public static string Looting {
-            get {
-                return ResourceManager.GetString("Looting", resourceCulture);
             }
         }
     }

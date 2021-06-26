@@ -234,6 +234,27 @@ namespace ClassicUO.Game.Data
                         sb.Append(ResGeneral.PigIron);
 
                         break;
+                    
+                    // other
+                    // case Reagents.Bone:
+                    //     sb.Append(ResGeneral.Bone);
+                    //
+                    //     break;
+                    //
+                    // case Reagents.FertileDirt:
+                    //     sb.Append(ResGeneral.FertileDirt);
+                    //
+                    //     break;
+                    //
+                    // case Reagents.DragonsBlood:
+                    //     sb.Append(ResGeneral.DragonsBlood);
+                    //
+                    //     break;
+                    //
+                    // case Reagents.DemonBone:
+                    //     sb.Append(ResGeneral.DemonBone);
+                    //
+                    //     break;
 
                     default:
 

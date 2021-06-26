@@ -319,7 +319,7 @@ namespace ClassicUO.Game.UI.Gumps
                             )
                         );
 
-                        _updateTooltipTime = (float) totalTime + 1000;
+                        _updateTooltipTime = (float) totalTime + 5000;
 
                         if (span.Hours > 0)
                         {

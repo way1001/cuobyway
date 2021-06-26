@@ -14,14 +14,14 @@ namespace ClassicUO.Resources {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ResGumps {
+    public class ResGumpsZh {
         
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
         
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ResGumps() {
+        internal ResGumpsZh() {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -147,6 +147,18 @@ namespace ClassicUO.Resources {
             }
         }
         
+        public static string AutoOpenDoors {
+            get {
+                return ResourceManager.GetString("AutoOpenDoors", resourceCulture);
+            }
+        }
+        
+        public static string NeedOpenCorpse {
+            get {
+                return ResourceManager.GetString("NeedOpenCorpse", resourceCulture);
+            }
+        }
+        
         public static string AutoLootGold {
             get {
                 return ResourceManager.GetString("AutoLootGold", resourceCulture);
@@ -171,9 +183,45 @@ namespace ClassicUO.Resources {
             }
         }
         
-        public static string AutoOpenDoors {
+        public static string GridLootType {
             get {
-                return ResourceManager.GetString("AutoOpenDoors", resourceCulture);
+                return ResourceManager.GetString("GridLootType", resourceCulture);
+            }
+        }
+        
+        public static string GridLoot_Scale {
+            get {
+                return ResourceManager.GetString("GridLoot_Scale", resourceCulture);
+            }
+        }
+        
+        public static string GridLoot_ItemInOneLine {
+            get {
+                return ResourceManager.GetString("GridLoot_ItemInOneLine", resourceCulture);
+            }
+        }
+        
+        public static string TryOpenCorpseOf {
+            get {
+                return ResourceManager.GetString("TryOpenCorpseOf", resourceCulture);
+            }
+        }
+        
+        public static string UILooting {
+            get {
+                return ResourceManager.GetString("UILooting", resourceCulture);
+            }
+        }
+        
+        public static string SetAutoSellList {
+            get {
+                return ResourceManager.GetString("SetAutoSellList", resourceCulture);
+            }
+        }
+        
+        public static string SetAutoBuyList {
+            get {
+                return ResourceManager.GetString("SetAutoBuyList", resourceCulture);
             }
         }
         
@@ -1479,12 +1527,6 @@ namespace ClassicUO.Resources {
             }
         }
         
-        public static string CustomizeGridBag {
-            get {
-                return ResourceManager.GetString("CustomizeGridBag", resourceCulture);
-            }
-        }
-        
         public static string Prev {
             get {
                 return ResourceManager.GetString("Prev", resourceCulture);
@@ -2703,39 +2745,33 @@ namespace ClassicUO.Resources {
             }
         }
         
+        public static string TranslateBy {
+            get {
+                return ResourceManager.GetString("TranslateBy", resourceCulture);
+            }
+        }
+        
+        public static string TranslateRelease {
+            get {
+                return ResourceManager.GetString("TranslateRelease", resourceCulture);
+            }
+        }
+        
         public static string ResetGroups {
             get {
                 return ResourceManager.GetString("ResetGroups", resourceCulture);
             }
         }
         
-        public static string LootList_Scale {
+        public static string AutoSellItem {
             get {
-                return ResourceManager.GetString("LootList_Scale", resourceCulture);
+                return ResourceManager.GetString("AutoSellItem", resourceCulture);
             }
         }
         
-        public static string LootListRows_Num {
+        public static string ExperimentalUseCustomBag {
             get {
-                return ResourceManager.GetString("LootListRows_Num", resourceCulture);
-            }
-        }
-        
-        public static string Lang {
-            get {
-                return ResourceManager.GetString("Lang", resourceCulture);
-            }
-        }
-        
-        public static string Language_ZH {
-            get {
-                return ResourceManager.GetString("Language_ZH", resourceCulture);
-            }
-        }
-        
-        public static string LanguageOption {
-            get {
-                return ResourceManager.GetString("LanguageOption", resourceCulture);
+                return ResourceManager.GetString("ExperimentalUseCustomBag", resourceCulture);
             }
         }
     }

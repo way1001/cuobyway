@@ -67,7 +67,7 @@ namespace ClassicUO.Game.UI.Gumps
 
         private GumpPic _picBase;
         private GumpPic _profilePic;
-        private readonly EquipmentSlot[] _slots = new EquipmentSlot[6];
+        private readonly EquipmentSlot[] _slots = new EquipmentSlot[18];
         private Label _titleLabel;
         private GumpPic _virtueMenuPic;
         private Button _warModeBtn;
@@ -368,6 +368,21 @@ namespace ClassicUO.Game.UI.Gumps
                     this
                 )
             );
+
+            Add(_slots[6] = new EquipmentSlot(0, 2, 75 +21 * 6, Layer.Talisman, this));
+            
+            Add(_slots[7] = new EquipmentSlot(0, 165, 75, Layer.Robe, this));
+            Add(_slots[8] = new EquipmentSlot(0, 165, 75 + 21, Layer.Torso, this));
+            Add(_slots[9] = new EquipmentSlot(0, 165, 75 + 21 * 2, Layer.Pants, this));
+            Add(_slots[10] = new EquipmentSlot(0, 165, 75 + 21 * 3, Layer.Gloves, this));
+            Add(_slots[11] = new EquipmentSlot(0, 165, 75 + 21 * 4, Layer.Arms, this));
+            Add(_slots[12] = new EquipmentSlot(0, 165, 75 + 21 * 5, Layer.Skirt, this));
+            Add(_slots[13] = new EquipmentSlot(0, 165, 75 + 21 * 6, Layer.Waist, this));
+
+            Add(_slots[14] = new EquipmentSlot(0, 62, 240, Layer.Shirt, this));
+            Add(_slots[15] = new EquipmentSlot(0, 62 + 21, 240, Layer.Shoes, this));
+            Add(_slots[16] = new EquipmentSlot(0, 62 + 21 * 2, 240, Layer.Legs, this));
+            Add(_slots[17] = new EquipmentSlot(0, 62 + 21 * 3, 240, Layer.Cloak, this));
 
             // Paperdoll control!
             _paperDollInteractable = new PaperDollInteractable(8, 19, LocalSerial, this);

@@ -194,6 +194,19 @@ namespace ClassicUO.Game.UI.Controls
                 return p;
             }
         }
+        
+        // public GumpControlInfo ControlInfo
+        // {
+        //     get
+        //     {
+        //         GumpControlInfo result;
+        //         if ((result = this._controlInfo) == null)
+        //         {
+        //             result = (this._controlInfo = new GumpControlInfo(this));
+        //         }
+        //         return result;
+        //     }
+        // }
 
         public UILayer LayerOrder { get; set; } = UILayer.Default;
         public bool IsModal { get; set; }

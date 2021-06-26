@@ -30,6 +30,7 @@
 
 #endregion
 
+using System.Collections.Generic;
 using ClassicUO.Configuration;
 using ClassicUO.Data;
 using ClassicUO.Game.Data;
@@ -51,7 +52,17 @@ namespace ClassicUO.Game.Managers
         SetTargetClientSide = 3,
         Grab,
         SetGrabBag,
-        HueCommandTarget
+        HueCommandTarget,
+        AddToLootlist,
+        AddToSelllist,
+        AddToBuylist,
+        Target_1,
+        Target_2,
+        Target_3,
+        Target_4,
+        Target_5,
+        Clear,
+        Supply
     }
 
     internal class CursorType
@@ -375,6 +386,61 @@ namespace ClassicUO.Game.Managers
 
                         ClearTargetingWithoutTargetCancelPacket();
 
+                        return;
+                    case CursorTarget.AddToLootlist:
+                    {
+                        Item item = World.Items.Get(serial);
+                        if (SerialHelper.IsItem(serial))
+                        {
+                            ushort[] array = new ushort[]
+                            {
+                                item.Graphic,
+                                item.Hue
+                            };
+                            if (ProfileManager.CurrentProfile.LootList == null)
+                            {
+                                ProfileManager.CurrentProfile.LootList = new List<ushort[]>();
+                            }
+                            bool flag = false;
+                            foreach (ushort[] array2 in ProfileManager.CurrentProfile.LootList)
+                            {
+                                if (array[0] == array2[0] && array[1] == array2[1])
+                                {
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if (!flag)
+                            {
+                                ProfileManager.CurrentProfile.LootList.Add(array);
+                                LootListGump gump3 = UIManager.GetGump<LootListGump>(null);
+                                if (gump3 != null)
+                                {
+                                    gump3.Dispose();
+                                }
+                                UIManager.Add(new LootListGump());
+                            }
+                        }
+                        ClearTargetingWithoutTargetCancelPacket();
+                        return;
+                    }
+                    case CursorTarget.Clear:
+                        if (SerialHelper.IsItem(serial))
+                        {
+                            PlayerMobile.MoveObject = true;
+                            PlayerMobile.MoveType = 0;
+                            PlayerMobile.MoveBag = World.GetOrCreateItem(serial);
+                        }
+                        ClearTargetingWithoutTargetCancelPacket();
+                        return;
+                    case CursorTarget.Supply:
+                        if (SerialHelper.IsItem(serial))
+                        {
+                            PlayerMobile.MoveObject = true;
+                            PlayerMobile.MoveType = 1;
+                            PlayerMobile.MoveBag = World.GetOrCreateItem(serial);
+                        }
+                        ClearTargetingWithoutTargetCancelPacket();
                         return;
                 }
             }

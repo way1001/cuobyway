@@ -810,7 +810,7 @@ namespace ClassicUO.Game.UI.Gumps
                     Add(_buttonStatus);
 
                     Label name;
-                    Add(name = new Label(skill.Name, false, 0x0288, font: 9));
+                    Add(name = new Label(skill.Name, true, 0x0282, font: 1));
                     name.X = 22;
 
                     Add(_value = new Label("", false, 0x0288, font: 9));

@@ -823,6 +823,7 @@ namespace ClassicUO.Game.Managers
 
                                     if (backpack != null)
                                     {
+                                        // todo way
                                         ContainerGump backpackGump = UIManager.GetGump<ContainerGump>(backpack.Serial);
 
                                         if (backpackGump != null)

@@ -446,9 +446,9 @@ namespace ClassicUO.Game.UI.Gumps
 
                     if (_spellBookType == SpellBookType.Magery)
                     {
-                        text = new Label(SpellsMagery.CircleNames[(page - 1) * 2 + j % 2], false, 0x0288, font: 6)
+                        text = new Label(SpellsMagery.CircleNames[(page - 1) * 2 + j % 2], true, 0x027D, font: 1)
                         {
-                            X = dataX, Y = 30
+                            X = dataX + 8, Y = 30
                         };
 
                         _dataBox.Add(text, page);
@@ -485,15 +485,15 @@ namespace ClassicUO.Game.UI.Gumps
                                 }
 
                                 spellDone++;
-
+                                // mastery书索引目录字体
                                 text = new HoveredLabel
                                 (
                                     name,
-                                    false,
-                                    0x0288,
-                                    0x33,
-                                    0x0288,
-                                    font: 9,
+                                    true,
+                                    0x0282,
+                                    0x2A,
+                                    0x0282,
+                                    font: 1,
                                     maxwidth: 130,
                                     style: FontStyle.Cropped
                                 )
@@ -528,15 +528,15 @@ namespace ClassicUO.Game.UI.Gumps
                                 }
 
                                 spellDone++;
-
+                                // 魔法术索引目录字体
                                 text = new HoveredLabel
                                 (
                                     name,
-                                    false,
-                                    0x0288,
-                                    0x33,
-                                    0x0288,
-                                    font: 9,
+                                    true,
+                                    0x0282,
+                                    0x2A,
+                                    0x0282,
+                                    font: 1,
                                     maxwidth: 130,
                                     style: FontStyle.Cropped
                                 )
@@ -599,21 +599,21 @@ namespace ClassicUO.Game.UI.Gumps
                     case SpellBookType.Magery:
 
                     {
-                        Label text = new Label(SpellsMagery.CircleNames[i >> 3], false, 0x0288, font: 6)
+                        Label text = new Label(SpellsMagery.CircleNames[i >> 3], true, 0x027D, font: 1)
                         {
                             X = topTextX,
                             Y = topTextY + 4
                         };
 
                         _dataBox.Add(text, page1);
-
+                        // 魔法书内法术名字体
                         text = new Label
                         (
                             name,
-                            false,
-                            0x0288,
+                            true,
+                            0x0282,
                             80,
-                            6
+                            1
                         )
                         {
                             X = iconTextX,
@@ -644,21 +644,22 @@ namespace ClassicUO.Game.UI.Gumps
                     case SpellBookType.Mastery:
 
                     {
-                        Label text = new Label(SpellsMastery.GetMasteryGroupByID(i + 1), false, 0x0288, font: 6)
+                        // 大师术法术名
+                        Label text = new Label(SpellsMastery.GetMasteryGroupByID(i + 1), true, 0x0282, font: 1)
                         {
                             X = topTextX,
                             Y = topTextY + 4
                         };
 
                         _dataBox.Add(text, page1);
-
+                        // 大师书内法术名称
                         text = new Label
                         (
                             name,
-                            false,
-                            0x0288,
+                            true,
+                            0x0282,
                             80,
-                            6
+                            1
                         )
                         {
                             X = iconTextX,
@@ -700,16 +701,18 @@ namespace ClassicUO.Game.UI.Gumps
                     default:
 
                     {
-                        Label text = new Label(name, false, 0x0288, font: 6)
+                        // 默认的书页内法术名称
+                        Label text = new Label(name, true, 0x0282, font: 1)
                         {
                             X = topTextX,
-                            Y = topTextY
+                            Y = topTextY + 5
                         };
 
                         _dataBox.Add(text, page1);
 
                         if (!string.IsNullOrEmpty(abbreviature))
                         {
+                            //咒语
                             text = new Label
                             (
                                 abbreviature,
@@ -786,17 +789,17 @@ namespace ClassicUO.Game.UI.Gumps
                             page1
                         );
                     }
-
-                    Label text = new Label(ResGumps.Reagents, false, 0x0288, font: 6)
+                    // 药材字体
+                    Label text = new Label(ResGumps.Reagents, true, 0x0255, font: 1)
                     {
-                        X = iconX, Y = 92
+                        X = iconX, Y = 95
                     };
 
                     _dataBox.Add(text, page1);
 
-                    text = new Label(reagents, false, 0x0288, font: 9)
+                    text = new Label(reagents, true, 0x0282, font: 1)
                     {
-                        X = iconX, Y = 114
+                        X = iconX + 40, Y = 95
                     };
 
                     _dataBox.Add(text, page1);
@@ -806,7 +809,7 @@ namespace ClassicUO.Game.UI.Gumps
                 {
                     GetSpellRequires(i, out int requiriesY, out string requires);
 
-                    Label text = new Label(requires, false, 0x0288, font: 6)
+                    Label text = new Label(requires, true, 0x0255, font: 1)
                     {
                         X = iconX, Y = requiriesY
                     };

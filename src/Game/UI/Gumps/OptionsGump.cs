@@ -32,8 +32,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using ClassicUO.Configuration;
 using ClassicUO.Data;
 using ClassicUO.Game.Data;
@@ -62,15 +64,18 @@ namespace ClassicUO.Game.UI.Gumps
 
         private static Texture2D _logoTexture2D;
         private Combobox _auraType, _filterType;
-        private Combobox _autoOpenCorpseOptions;
+        private Combobox _autoOpenCorpseOptions, _selectLanguage;
         private InputField _autoOpenCorpseRange;
 
         //experimental
-        private Checkbox _autoOpenDoors, _autoOpenCorpse, _skipEmptyCorpse, _disableTabBtn, _disableCtrlQWBtn, _disableDefaultHotkeys, _disableArrowBtn, _disableAutoMove, _overrideContainerLocation, _smoothDoors, _showTargetRangeIndicator, _customBars, _customBarsBBG, _saveHealthbars;
+        private Checkbox _autoOpenDoors, _autoOpenCorpse, _skipEmptyCorpse, _disableTabBtn, _disableCtrlQWBtn, _disableDefaultHotkeys, _disableArrowBtn, _disableAutoMove, _overrideContainerLocation, _customizeGridBag, _smoothDoors, _showTargetRangeIndicator, _customBars, _customBarsBBG, _saveHealthbars;
+        private Checkbox _autoLootGold, _autoLootItem;
+        private HSliderBar _autoLootDelays, _lootListScale, _rowsNumber;
         private Checkbox _buffBarTime, _castSpellsByOneClick, _queryBeforAttackCheckbox, _queryBeforeBeneficialCheckbox, _spellColoringCheckbox, _spellFormatCheckbox;
         private HSliderBar _cellSize;
         private Checkbox _containerScaleItems, _containerDoubleClickToLoot, _relativeDragAnDropItems, _useLargeContianersGumps, _highlightContainersWhenMouseIsOver;
 
+        private NiceButton _lootButton;
 
         // containers
         private HSliderBar _containersScale;
@@ -460,8 +465,27 @@ namespace ClassicUO.Game.UI.Gumps
 
 
             SettingsSection section = AddSettingsSection(box, "General");
+            
+            section.Add(AddLabel(null, ResGumps.LanguageOption, startX, startY));
 
-
+            section.AddRight
+            (
+                _selectLanguage = AddCombobox
+                (
+                    null,
+                    new[]
+                    {
+                        "English",
+                        ResGumps.Language_ZH
+                    },
+                    _currentProfile.SelectLanguage,
+                    startX,
+                    startY,
+                    150
+                ),
+                2
+            );
+            
             section.Add
             (
                 _highlightObjects = AddCheckBox
@@ -613,6 +637,101 @@ namespace ClassicUO.Game.UI.Gumps
             );
 
             section.PopIndent();
+            section.PushIndent();
+            
+            section.Add(AddLabel(null, ResGumps.LootList_Scale, 0, 0));
+
+            section.AddRight
+            (
+                _lootListScale = AddHSlider
+                (
+                    null,
+                    0x01,
+                    0x03,
+                    _currentProfile.LootListScale,
+                    startX,
+                    startY + 5,
+                    120
+                )
+            );
+            
+            section.Add(AddLabel(null, ResGumps.LootListRows_Num, 0, 0));
+
+            section.AddRight
+            (
+                _rowsNumber = AddHSlider
+                (
+                    null,
+                    0x03,
+                    0x06,
+                    _currentProfile.LootListRowsNum,
+                    startX,
+                    startY + 5,
+                    120
+                )
+            );
+            
+            section.PopIndent();
+            section.Add
+            (
+                _autoLootGold= AddCheckBox
+                (
+                    null,
+                    ResGumps.AutoLootGold,
+                    _currentProfile.AutoLootGold,
+                    startX,
+                    startY
+                )
+            );
+            
+            section.Add
+            (
+                _autoLootItem = AddCheckBox
+                (
+                    null,
+                    ResGumps.AutoLootItem,
+                    _currentProfile.AutoLootItem,
+                    startX,
+                    startY
+                )
+            );
+            
+            section.Add(AddLabel(null, ResGumps.AutoLootDelays, startX, startX));
+            section.AddRight
+            (
+                _autoLootDelays = AddHSlider
+                (
+                    null,
+                    0xc8,
+                    0x7d0,
+                    _currentProfile.AutoLootDelays,
+                    startX,
+                    startY,
+                    150
+                )
+            );
+            
+            _lootButton = new NiceButton
+            (
+                startX + 20,
+                startY,
+                250,
+                25,
+                ButtonAction.Activate,
+                ">>" + ResGumps.SetAutoLootList+ "<<"
+            ) { ButtonParameter = (int) Buttons.Disabled };
+
+            _lootButton.MouseUp += (sender, e) =>
+            {
+                LootListGump gump = UIManager.GetGump<LootListGump>(null);
+                if (gump != null)
+                {
+                    gump.Dispose();
+                }
+                UIManager.Add(new LootListGump());
+            };
+
+            section.Add(_lootButton);
 
             section.Add
             (
@@ -3288,6 +3407,17 @@ namespace ClassicUO.Game.UI.Gumps
 
             button.MouseUp += (sender, e) => { ContainerManager.BuildContainerFile(true); };
             rightArea.Add(button);
+            
+            startY += button.Height + 20;
+            
+            _customizeGridBag = AddCheckBox
+            (
+                rightArea,
+                ResGumps.CustomizeGridBag,
+                _currentProfile.CustomizeGridBag,
+                startX,
+                startY
+            );
 
             Add(rightArea, PAGE);
         }
@@ -3527,6 +3657,7 @@ namespace ClassicUO.Game.UI.Gumps
                     _relativeDragAnDropItems.IsChecked = false;
                     _highlightContainersWhenMouseIsOver.IsChecked = false;
                     _overrideContainerLocation.IsChecked = false;
+                    _customizeGridBag.IsChecked = false;
                     _overrideContainerLocationSetting.SelectedIndex = 0;
                     _backpackStyle.SelectedIndex = 0;
 
@@ -3941,7 +4072,13 @@ namespace ClassicUO.Game.UI.Gumps
             _currentProfile.AutoOpenCorpseRange = int.Parse(_autoOpenCorpseRange.Text);
             _currentProfile.CorpseOpenOptions = _autoOpenCorpseOptions.SelectedIndex;
             _currentProfile.SkipEmptyCorpse = _skipEmptyCorpse.IsChecked;
-
+            _currentProfile.AutoLootGold = _autoLootGold.IsChecked;
+            _currentProfile.AutoLootItem = _autoLootItem.IsChecked;
+            _currentProfile.AutoLootDelays = _autoLootDelays.Value;
+            
+            _currentProfile.LootListScale = _lootListScale.Value;
+            _currentProfile.LootListRowsNum = _rowsNumber.Value;
+                
             _currentProfile.EnableDragSelect = _enableDragSelect.IsChecked;
             _currentProfile.DragSelectModifierKey = _dragSelectModifierKey.SelectedIndex;
             _currentProfile.DragSelectHumanoidsOnly = _dragSelectHumanoidsOnly.IsChecked;
@@ -3951,6 +4088,8 @@ namespace ClassicUO.Game.UI.Gumps
             _currentProfile.ShowStatsChangedMessage = _showStatsMessage.IsChecked;
 
             _currentProfile.OverrideContainerLocation = _overrideContainerLocation.IsChecked;
+            _currentProfile.CustomizeGridBag = _customizeGridBag.IsChecked;
+
             _currentProfile.OverrideContainerLocationSetting = _overrideContainerLocationSetting.SelectedIndex;
 
             _currentProfile.ShowTargetRangeIndicator = _showTargetRangeIndicator.IsChecked;
@@ -4069,6 +4208,31 @@ namespace ClassicUO.Game.UI.Gumps
             _currentProfile.TooltipFont = _tooltip_font_selector.GetSelectedFont();
 
             _currentProfile?.Save(ProfileManager.ProfilePath);
+            
+            if (_selectLanguage.SelectedIndex != ProfileManager.CurrentProfile.SelectLanguage)
+            {
+                ProfileManager.CurrentProfile.SelectLanguage = _selectLanguage.SelectedIndex;
+                Settings.GlobalSettings.Lang = ProfileManager.CurrentProfile.SelectLanguage;
+                if (ProfileManager.CurrentProfile.SelectLanguage == 0)
+                {
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+                }
+                else
+                {
+                    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("zh");
+                }
+                if (!_enableTopbar.IsChecked)
+                {
+                    TopBarGump gump10 = UIManager.GetGump<TopBarGump>(null);
+                    if (gump10 != null)
+                    {
+                        gump10.Dispose();
+                    }
+                    TopBarGump.Create();
+                }
+                Dispose();
+                UIManager.Add(new OptionsGump());
+            }
         }
 
         internal void UpdateVideo()

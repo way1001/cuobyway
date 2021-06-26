@@ -254,8 +254,14 @@ namespace ClassicUO.Game.UI.Gumps
                     break;
 
                 case Buttons.Inventory:
-                    GameActions.OpenBackpack();
-
+                    if (ProfileManager.CurrentProfile.CustomizeGridBag)
+                    {
+                        GameActions.OpenGridBackpack();
+                    }
+                    else
+                    {
+                        GameActions.OpenBackpack();
+                    }
                     break;
 
                 case Buttons.Journal:

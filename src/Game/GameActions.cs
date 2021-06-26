@@ -271,6 +271,35 @@ namespace ClassicUO.Game
 
             return true;
         }
+        
+        public static bool OpenGridBackpack()
+        {
+            Item backpack = World.Player.FindItemByLayer(Layer.Backpack);
+
+            if (backpack == null)
+            {
+                return false;
+            }
+
+            GridContainerGump gridContainerGump = UIManager.GetGump<GridContainerGump>(backpack);
+
+            if (gridContainerGump == null)
+            {
+                DoubleClick(backpack);
+            }
+            else
+            {
+                // if (gridContainerGump.IsMinimized)
+                // {
+                //     backpackGump.IsMinimized = false;
+                // }
+
+                gridContainerGump.SetInScreen();
+                gridContainerGump.BringOnTop();
+            }
+
+            return true;
+        }
 
         public static void Attack(uint serial)
         {

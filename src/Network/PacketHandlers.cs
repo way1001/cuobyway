@@ -441,8 +441,8 @@ namespace ClassicUO.Network
                                     string.Format(ResGeneral.Your0HasChangedBy1ItIsNow2, ResGeneral.Strength, deltaStr, str),
                                     0x0170,
                                     MessageType.System,
-                                    3,
-                                    false
+                                    1,
+                                    true
                                 );
                             }
 
@@ -453,8 +453,8 @@ namespace ClassicUO.Network
                                     string.Format(ResGeneral.Your0HasChangedBy1ItIsNow2, ResGeneral.Dexterity, deltaDex, dex),
                                     0x0170,
                                     MessageType.System,
-                                    3,
-                                    false
+                                    1,
+                                    true
                                 );
                             }
 
@@ -465,8 +465,8 @@ namespace ClassicUO.Network
                                     string.Format(ResGeneral.Your0HasChangedBy1ItIsNow2, ResGeneral.Intelligence, deltaInt, intell),
                                     0x0170,
                                     MessageType.System,
-                                    3,
-                                    false
+                                    1,
+                                    true
                                 );
                             }
                         }
@@ -808,6 +808,9 @@ namespace ClassicUO.Network
             {
                 NetClient.Socket.Send(new PShowPublicHouseContent(ProfileManager.CurrentProfile.ShowHouseContent));
             }
+
+            ProfileManager.CurrentProfile.SelectLanguage = Settings.GlobalSettings.Lang;
+
         }
 
         private static void Talk(ref PacketBufferReader p)
@@ -922,7 +925,14 @@ namespace ClassicUO.Network
                         UIManager.GetGump<PaperDollGump>(cont)?.RequestUpdateContents();
                     }
 
-                    UIManager.GetGump<ContainerGump>(cont)?.RequestUpdateContents();
+                    if (ProfileManager.CurrentProfile.CustomizeGridBag)
+                    {
+                        UIManager.GetGump<GridContainerGump>(cont)?.RequestUpdateContents();
+                    }
+                    else
+                    {
+                        UIManager.GetGump<ContainerGump>(cont)?.RequestUpdateContents();
+                    }
 
                     if (top != null && top.Graphic == 0x2006 && (ProfileManager.CurrentProfile.GridLootType == 1 || ProfileManager.CurrentProfile.GridLootType == 2))
                     {
@@ -1297,6 +1307,17 @@ namespace ClassicUO.Network
                         {
                             return;
                         }
+                    }
+                    
+                    if (ProfileManager.CurrentProfile.CustomizeGridBag)
+                    {
+                        GridContainerGump gump4 = UIManager.GetGump<GridContainerGump>(item);
+                        if (gump4 != null)
+                        {
+                            gump4.Dispose();
+                        }
+                        UIManager.Add(new GridContainerGump(item));
+                        return;
                     }
 
                     ContainerGump container = UIManager.GetGump<ContainerGump>(serial);
@@ -1901,8 +1922,8 @@ namespace ClassicUO.Network
                                         ),
                                         0x58,
                                         MessageType.System,
-                                        3,
-                                        false
+                                        1,
+                                        true
                                     );
                                 }
                             }
@@ -4640,6 +4661,8 @@ namespace ClassicUO.Network
 
             string arguments = null;
 
+            // World.Player.LastClioc = cliloc;
+
             if (cliloc == 1008092 || cliloc == 1005445) // value for "You notify them you don't want to join the party" || "You have been added to the party"
             {
                 for (LinkedListNode<Gump> g = UIManager.Gumps.Last; g != null; g = g.Previous)
@@ -5895,11 +5918,18 @@ namespace ClassicUO.Network
 
                     if (gump == null)
                     {
-                        gump = UIManager.GetGump<ContainerGump>(containerSerial);
-
-                        if (gump != null)
+                        if (ProfileManager.CurrentProfile.CustomizeGridBag)
                         {
-                            ((ContainerGump) gump).CheckItemControlPosition(item);
+                            gump = UIManager.GetGump<GridContainerGump>(containerSerial);
+                        }
+                        else
+                        {
+                            gump = UIManager.GetGump<ContainerGump>(containerSerial);
+                            if (gump != null)
+                            {
+                                ((ContainerGump) gump).CheckItemControlPosition(item);
+                                
+                            }
                         }
 
                         if (ProfileManager.CurrentProfile.GridLootType > 0)
